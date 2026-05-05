@@ -1,4 +1,4 @@
-gradio
+streamlit
 easyocr
 langchain
 langchain-community
