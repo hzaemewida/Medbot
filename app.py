@@ -11,13 +11,17 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_groq import ChatGroq
 
-# إعداد المفتاح من السيكرتس
-api_key = st.secrets["GROQ_API_KEY"]
+# التأكد من المفتاح
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+else:
+    st.error("يرجى إضافة GROQ_API_KEY في Secrets")
+    st.stop()
 
 @st.cache_resource
 def load_system():
     reader = easyocr.Reader(['en'])
-    pdf_path = "Reference.pdf" # تأكد إن الاسم هنا مطابق للاسم في جيت هاب
+    pdf_path = "Reference.pdf" 
     if os.path.exists(pdf_path):
         loader = PyPDFLoader(pdf_path)
         docs = loader.load()
@@ -33,8 +37,6 @@ def load_system():
 reader, qa = load_system()
 
 st.title("🩺 MedBot Pro")
-st.subheader("تحليل الروشتات بالذكاء الاصطناعي")
-
 up_file = st.file_uploader("ارفع صورة الروشتة", type=['jpg','png','jpeg'])
 
 if up_file:
