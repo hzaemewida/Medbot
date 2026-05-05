@@ -1,0 +1,11 @@
+gradio
+easyocr
+langchain
+langchain-community
+langchain-groq
+langchain-huggingface
+sentence-transformers
+faiss-cpu
+pypdf
+opencv-python-headless
+Pillow
